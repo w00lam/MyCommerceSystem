@@ -1,0 +1,41 @@
+package com.woolam.commerce;
+
+import java.text.DecimalFormat;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class Category {
+    // 카테고리 속성
+    String category;
+    List<Product> products;
+
+    // 출력 포맷을 위한 유틸리티 객체
+    DecimalFormat df = new DecimalFormat("###,###");
+    AtomicInteger index = new AtomicInteger(1);
+
+    // 생성자
+    public Category(String category, List<Product> products) {
+        this.category = category;
+        this.products = products;
+    }
+
+    // 카테고리 이름 반환
+    public String getCategory() {
+        return category;
+    }
+
+    // 상품 리스트 반환
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    // 해당 카테고리의 상품들을 포맷에 맞춰 출력
+    public void getProductList(List<Product> products) {
+        index.set(1);
+        System.out.println("[ " + this.getCategory() + " 카테고리 ]");
+        products.stream()
+                .map(p -> String.format("%d. %-15s | %10s원 | %s",
+                        index.getAndIncrement(), p.name, df.format(p.price), p.description))
+                .forEach(System.out::println);
+    }
+}
