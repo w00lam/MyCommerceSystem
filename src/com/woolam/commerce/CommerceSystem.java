@@ -6,8 +6,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class CommerceSystem {
     // 커머스 시스템 속성
-    private final Scanner scanner;
-    private final List<Category> categories;
+    Scanner scanner;
+    List<Category> categories;
 
     // 출력 포맷을 위한 유틸리티 객체
     AtomicInteger index = new AtomicInteger(1);
@@ -75,6 +75,7 @@ public class CommerceSystem {
                             System.out.println("다시 입력해 주세요.\n");
                         }
                     }
+                    break;
                 }
                 // 식품 카테고리
                 case 3: {
@@ -96,18 +97,16 @@ public class CommerceSystem {
                             System.out.println("다시 입력해 주세요.\n");
                         }
                     }
-                }
-                case 0: {
                     break;
                 }
-            }
-
-            if (command == 0) {
-                System.out.println("커머스 플랫폼을 종료합니다.");
-                scanner.close();
-                System.exit(0);
-            } else {
-                System.out.println("잘못된 입력입니다.\n");
+                case 0: {
+                    System.out.println("커머스 플랫폼을 종료합니다.");
+                    scanner.close();
+                    System.exit(0);
+                }
+                default: {
+                    System.out.println("잘못된 입력입니다.\n");
+                }
             }
         }
     }
