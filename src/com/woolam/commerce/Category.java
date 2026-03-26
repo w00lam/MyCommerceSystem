@@ -31,6 +31,7 @@ public class Category {
 
     // 카테고리 목록을 출력
     public static void getCategoryList(List<Category> categories) {
+        index.set(1);
         categories.stream()
                 .map(c -> String.format("%d. %s", index.getAndIncrement(), c.getCategory()))
                 .forEach(System.out::println);
