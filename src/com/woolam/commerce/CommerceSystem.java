@@ -6,8 +6,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class CommerceSystem {
     // 커머스 시스템 속성
-    Scanner scanner;
-    List<Category> categories;
+    private final Scanner scanner;
+    private final List<Category> categories;
 
     // 출력 포맷을 위한 유틸리티 객체
     AtomicInteger index = new AtomicInteger(1);

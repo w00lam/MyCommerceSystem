@@ -6,8 +6,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Category {
     // 카테고리 속성
-    String category;
-    List<Product> products;
+    private final String category;
+    private final List<Product> products;
 
     // 출력 포맷을 위한 유틸리티 객체
     DecimalFormat df = new DecimalFormat("###,###");
@@ -35,7 +35,7 @@ public class Category {
         System.out.println("[ " + this.getCategory() + " 카테고리 ]");
         products.stream()
                 .map(p -> String.format("%d. %-15s | %10s원 | %s",
-                        index.getAndIncrement(), p.name, df.format(p.price), p.description))
+                        index.getAndIncrement(), p.getName(), df.format(p.getPrice()), p.getDescription()))
                 .forEach(System.out::println);
     }
 }
