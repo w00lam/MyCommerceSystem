@@ -2,15 +2,11 @@ package com.woolam.commerce;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class CommerceSystem {
     // 커머스 시스템 속성
     Scanner scanner;
     List<Category> categories;
-
-    // 출력 포맷을 위한 유틸리티 객체
-    AtomicInteger index = new AtomicInteger(1);
 
     // 생성자
     public CommerceSystem(List<Category> categories, Scanner scanner) {
@@ -21,13 +17,9 @@ public class CommerceSystem {
     // 커머스 관리 메뉴
     public void start() {
         while (true) {
-            index.set(1);
-            System.out.println("[ 실시간 커머스 플랫폼 메인 ]");
             // 포맷에 맞게 메뉴 출력
-            categories.stream()
-                    .map(c -> String.format("%d. %s", index.getAndIncrement(), c.getCategory()))
-                    .forEach(System.out::println);
-
+            System.out.println("[ 실시간 커머스 플랫폼 메인 ]");
+            Category.getCategoryList(categories);
             System.out.printf("%d. %-6s | %s%n", 0, "종료", "프로그램 종료");
             int command = scanner.nextInt();
 

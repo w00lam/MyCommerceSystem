@@ -11,7 +11,7 @@ public class Category {
 
     // 출력 포맷을 위한 유틸리티 객체
     DecimalFormat df = new DecimalFormat("###,###");
-    AtomicInteger index = new AtomicInteger(1);
+    static AtomicInteger index = new AtomicInteger(1);
 
     // 생성자
     public Category(String category, List<Product> products) {
@@ -27,6 +27,13 @@ public class Category {
     // 상품 리스트 반환
     public List<Product> getProducts() {
         return products;
+    }
+
+    // 카테고리 목록을 출력
+    public static void getCategoryList(List<Category> categories) {
+        categories.stream()
+                .map(c -> String.format("%d. %s", index.getAndIncrement(), c.getCategory()))
+                .forEach(System.out::println);
     }
 
     // 해당 카테고리의 상품들을 포맷에 맞춰 출력
