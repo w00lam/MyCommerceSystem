@@ -1,12 +1,16 @@
 package com.woolam.commerce;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import com.woolam.commerce.domain.Category;
+import com.woolam.commerce.domain.Product;
+import com.woolam.commerce.service.CategoryService;
+import com.woolam.commerce.service.ProductService;
+import com.woolam.commerce.service.Service;
+
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         // 상품 생성
         List<Product> products = new ArrayList<>();
@@ -21,10 +25,22 @@ public class Main {
         categories.add(new Category("의류", new ArrayList<>()));
         categories.add(new Category("식품", new ArrayList<>()));
 
+        // 서비스 객체 생성
+        CategoryService categoryService = new CategoryService(categories, scanner);
+        ProductService productService = new ProductService(scanner);
+
+        // 서비스 등록
+        Map<String, Service> services = new HashMap<>();
+        services.put("categoryService", categoryService);
+        services.put("productService", productService);
+
         // CommerceSystem 객체 생성
-        CommerceSystem commerceSystem = new CommerceSystem(categories, sc);
+        CommerceSystem commerceSystem = new CommerceSystem(services);
 
         // 관리시스템 시작
         commerceSystem.start();
+
+        // 종료
+        scanner.close();
     }
 }

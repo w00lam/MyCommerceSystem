@@ -1,10 +1,10 @@
-package com.woolam.commerce;
+package com.woolam.commerce.domain;
 
 public class Customer {
     // 고객 속성
-    String name;
-    String email;
-    String grade;
+    private final String name;
+    private final String email;
+    private String grade;
 
     // 생성자
     public Customer(String name, String email, String grade) {
