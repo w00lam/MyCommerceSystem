@@ -26,7 +26,7 @@ public class OrderService implements Service {
         System.out.printf("\n[ 총 주문 금액 ] %,d원\n", cart.getTotalPrice());
         System.out.println("\n1. 주문 확정      2. 메인으로 돌아가기");
 
-        int command = scanner.nextInt();
+        int command = Integer.parseInt(scanner.nextLine());
         if (command == 1) {
             System.out.printf("주문이 완료되었습니다! 총 금액: %,d원%n", cart.getTotalPrice());
             // 재고 차감

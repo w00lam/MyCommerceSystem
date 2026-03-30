@@ -22,7 +22,7 @@ public class CartService implements Service {
         // 1. 상품을 선택하고 들어온 경우 (장바구니 담기 확인 창)
         if (selectedProduct != null) {
             displayConfirmMessage(selectedProduct);
-            int command = scanner.nextInt();
+            int command = Integer.parseInt(scanner.nextLine());
 
             if (command == 1) {
                 addToCart(data, selectedProduct);

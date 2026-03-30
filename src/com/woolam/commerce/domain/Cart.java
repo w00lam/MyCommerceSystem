@@ -35,4 +35,8 @@ public class Cart {
     public long getTotalPrice() {
         return items.stream().mapToLong(CartItem::getSubTotal).sum();
     }
+
+    public void removeProduct(Product product) {
+        items.removeIf(item -> item.getProduct().equals(product));
+    }
 }

@@ -27,7 +27,7 @@ public class ProductService implements Service {
         System.out.println("[ " + selectedCategory.getLabel() + " 카테고리 ]");
         display(products);
 
-        int command = scanner.nextInt();
+        int command = Integer.parseInt(scanner.nextLine());
 
         if (command == 0) {
             return new ServiceFlag("categoryService", data);
