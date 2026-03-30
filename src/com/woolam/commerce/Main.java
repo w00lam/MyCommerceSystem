@@ -1,16 +1,22 @@
 package com.woolam.commerce;
 
-import com.woolam.commerce.domain.Category;
-import com.woolam.commerce.domain.Product;
-import com.woolam.commerce.service.CategoryService;
-import com.woolam.commerce.service.ProductService;
-import com.woolam.commerce.service.Service;
+import com.woolam.commerce.controller.CommerceSystem;
+import com.woolam.commerce.domain.*;
+import com.woolam.commerce.dto.ServiceData;
+import com.woolam.commerce.service.*;
 
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        // 장바구니 생성
+        List<CartItem> items = new ArrayList<>();
+        Cart cart = new Cart(items);
+
+        // 사용자 생성
+        Customer customer = new Customer("사용자", "이메일", "등급", cart);
 
         // 상품 생성
         List<Product> products = new ArrayList<>();
@@ -28,19 +34,24 @@ public class Main {
         // 서비스 객체 생성
         CategoryService categoryService = new CategoryService(categories, scanner);
         ProductService productService = new ProductService(scanner);
+        CartService cartService = new CartService(scanner);
+        OrderService orderService = new OrderService(scanner);
+        CustomerService customerService = new CustomerService(scanner);
 
         // 서비스 등록
         Map<String, Service> services = new HashMap<>();
         services.put("categoryService", categoryService);
         services.put("productService", productService);
+        services.put("cartService", cartService);
+        services.put("orderService", orderService);
+        services.put("customerService", customerService);
+
+        ServiceData data = new ServiceData();
 
         // CommerceSystem 객체 생성
-        CommerceSystem commerceSystem = new CommerceSystem(services);
+        CommerceSystem commerceSystem = new CommerceSystem(services, customer, data, scanner);
 
         // 관리시스템 시작
         commerceSystem.start();
-
-        // 종료
-        scanner.close();
     }
 }

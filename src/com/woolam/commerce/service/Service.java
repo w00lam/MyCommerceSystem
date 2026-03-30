@@ -1,7 +1,8 @@
 package com.woolam.commerce.service;
 
-import com.woolam.commerce.dto.ServiceResponse;
+import com.woolam.commerce.dto.ServiceData;
+import com.woolam.commerce.dto.ServiceFlag;
 
 public interface Service {
-    ServiceResponse run(Object inputData);
+    ServiceFlag run(ServiceData data);
 }
