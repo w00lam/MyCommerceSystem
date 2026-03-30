@@ -24,6 +24,21 @@ public class Cart {
         items.add(new CartItem(product, 1));
     }
 
+    public void display() {
+        System.out.println("\n[ 장바구니 내역 ]");
+
+        if (items.isEmpty()) {
+            System.out.println("장바구니가 비어 있습니다.");
+            return;
+        }
+
+        for (CartItem item : items) {
+            item.display();
+        }
+
+        System.out.printf("\n[ 총 금액 ]\n%,d원%n", getTotalPrice());
+    }
+
     public boolean isEmpty() {
         return items.isEmpty();
     }
@@ -38,5 +53,11 @@ public class Cart {
 
     public void removeProduct(Product product) {
         items.removeIf(item -> item.getProduct().equals(product));
+    }
+
+    public boolean removeByProductName(String keyword) {
+        return items.removeIf(item ->
+                item.getProduct().getName().contains(keyword)
+        );
     }
 }

@@ -37,7 +37,7 @@ public class CategoryService implements Service {
 
         // 장바구니 관련 메뉴 선택 시
         if (hasItems) {
-            if (command == 4) return new ServiceFlag("orderService", data);
+            if (command == 4) return new ServiceFlag("cartService", data);
             if (command == 5) return new ServiceFlag("orderService", data);
         }
 
