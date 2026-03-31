@@ -13,6 +13,93 @@
 
 ---
 
+## 📂 프로젝트 구조
+
+### 1. 패키지 구조
+```bash
+src/main/java/com/woolam/commerce/
+├── Main.java                # 애플리케이션 진입점 및 의존성 주입
+├── controller/
+│   └── CommerceSystem.java  # 서비스 라우팅 및 중앙 예외 처리
+├── domain/                  # 비즈니스 핵심 모델 및 상태 관리
+│   ├── Cart.java            # 장바구니
+│   ├── CartItem.java        # 장바구니 개별 품목
+│   ├── Category.java        # 상품 분류 정보
+│   ├── Customer.java        # 사용자 정보
+│   ├── CustomerGrade.java   # 등급(Enum) 관리
+│   └── Product.java         # 상품 명세 및 재고
+├── dto/                     # 서비스 간 데이터 전송 및 상태 제어
+│   ├── ServiceData.java     # 공유 데이터
+│   └── ServiceFlag.java     # 실행 결과 및 다음 이동 정보
+└── service/                 # 기능별 비즈니스 로직 구현체
+├── Service.java         # 서비스 공통 인터페이스
+├── AdminService.java    # 관리자 모드 로직
+├── CartService.java     # 장바구니 및 주문 로직
+├── CategoryService.java # 메인 메뉴 및 카테고리 탐색
+├── CustomerService.java # 고객 관련 부가 서비스
+├── OrderService.java    # 주문 처리 및 재고 관리
+└── ProductService.java  # 상품 리스트 및 상세 조회
+```
+
+### 2. 클래스 다이어그램
+```mermaid
+classDiagram
+direction TB
+class Main {
+    +main(String[] args)
+}
+
+    class CommerceSystem {
+        -Map~String, Service~ services
+        -ServiceData request
+        -Scanner scanner
+        -String nextService
+        +start()
+    }
+
+    class Service {
+        <<interface>>
+        +run(ServiceData request) ServiceFlag
+    }
+
+    class CategoryService {
+        -List~Category~ categories
+        +run() ServiceFlag
+    }
+
+    class ProductService {
+        +run() ServiceFlag
+    }
+
+    class CartService {
+        +run() ServiceFlag
+    }
+
+    class ServiceData {
+        -Category currentCategory
+        -Product currentProduct
+        -Cart cart
+    }
+
+    class ServiceFlag {
+        -String nextService
+        -ServiceData request
+    }
+
+    %% 관계 설정
+    Main ..> CommerceSystem : "생성 및 의존성 주입"
+    CommerceSystem "1" o-- "many" Service : "Map으로 관리/호출"
+    Service <|.. CategoryService : "구현"
+    Service <|.. ProductService : "구현"
+    Service <|.. CartService : "구현"
+    
+    Service ..> ServiceData : "데이터 참조"
+    Service ..> ServiceFlag : "실행 결과 반환"
+    CommerceSystem ..> ServiceData : "상태 유지"
+```
+
+---
+
 ## 🧠 핵심 설계
 
 ### 1. Map 기반 다형성 서비스 구조 (OCP 적용)
